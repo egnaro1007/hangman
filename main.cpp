@@ -1,7 +1,9 @@
 #include <iostream>
 #include <fstream>
-#include <cstdlib>
-#include <ctime>
+#include "random.h"
+
+void openDictionary(std::fstream &file, std::string path);
+std::string wordFromDictionary(std::string path = "dictionary.txt");// Default path
 
 void play();
 char inputGuessChar();
@@ -10,18 +12,11 @@ void render(std::string &guessedWord, unsigned int &wrongGuessCount);
 
 void gameOver(bool win, std::string word);
 
-int openDictionary(std::fstream &file, std::string path = "dictionary.txt");// Default path
-std::string generateWord();
+
 
 int main() 
 {
-    // std::fstream file;
-    // openDictionary(file);
-
-    //std::cout << generateWord();
-
     play();
-    
 }
 
 void play() {
@@ -30,7 +25,7 @@ void play() {
     std::string guessedWord = "";
     unsigned int wrongGuessCount = 0;
 
-    word = generateWord();
+    word = wordFromDictionary();
     unsigned int wordLength = word.length();
     for (int i = 0; i < wordLength; i++)
     {
@@ -113,12 +108,7 @@ void gameOver(bool win, std::string word) {
 
 
 
-std::string generateWord() {
-    return "abcdefa";
-}
-
-int openDictionary(std::fstream &file, std::string path) { 
-    path = "dictionary.txt";
+void openDictionary(std::fstream &file, std::string path) { 
     file.open(path);
     while (!file.is_open()) {
         system("cls");
@@ -127,8 +117,19 @@ int openDictionary(std::fstream &file, std::string path) {
         std::cin >> path;
         file.open(path);
     }
+}
+std::string wordFromDictionary(std::string path) {
+    //return "abcdefa";
+    std::fstream file;
+    openDictionary(file, path);
 
-    unsigned int numberOfWord = 0;
-    file >> numberOfWord;
-    return numberOfWord;
+
+    double pos = get_random_double();
+    std::string s;
+    for (double i = 0; i < pos; i++)
+    {
+        file >> s;
+    }
+    
+    return s;
 }
