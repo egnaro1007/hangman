@@ -20,6 +20,8 @@ int main()
 }
 
 void play() {
+    system("cls");
+
     char guessChar;
     std::string word;
     std::string guessedWord = "";
@@ -52,7 +54,9 @@ void play() {
             gameOver(false, word);
             gameRunning = false;
         }
-    } while (gameRunning);  
+    } while (gameRunning); 
+
+    system("pause");
 }
 
 char inputGuessChar() {
@@ -90,13 +94,15 @@ bool update(const std::string &word, std::string &guessedWord, char &guessChar, 
     return true;
 }
 
+void texture(int pos, std::string path); // Start at 0, 10 line per texture
 void render(std::string &guessedWord, unsigned int &wrongGuessCount) {
+    system("cls");
+    texture(wrongGuessCount, "man.texture");
     std::cout << guessedWord << "\n";
     std::cout << "Wrong: " << wrongGuessCount << "\n";
 }
 
 void gameOver(bool win, std::string word) {
-    system("cls");
     if (win) {
         std::cout << "You Guessed It!\n"; 
     }
@@ -132,4 +138,21 @@ std::string wordFromDictionary(std::string path) {
     }
     
     return s;
+}
+
+void texture(int pos, std::string path) {
+    std::fstream texture;
+    texture.open(path);
+
+    std::string line;
+    for (int i = 0; i < pos*10; i++)
+    {
+        getline(texture, line);
+    }
+    for (int i = 0; i < 10; i++)
+    {
+        getline(texture, line);
+        std::cout << line << "\n";
+    }
+    texture.close();
 }
