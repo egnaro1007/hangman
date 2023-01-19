@@ -132,9 +132,10 @@ std::string wordFromDictionary(std::string path) {
     openDictionary(file, path);
 
 
-    double pos = get_random_double();
+    int numberOfWordInDictionary = 370105;
+    long long int pos = (get_random_number() + numberOfWordInDictionary) % numberOfWordInDictionary + 1;
     std::string s;
-    for (double i = 0; i < pos; i++)
+    for (long long int i = 0; i < pos; i++)
     {
         file >> s;
     }
